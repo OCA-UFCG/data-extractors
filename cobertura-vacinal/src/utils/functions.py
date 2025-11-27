@@ -5,14 +5,12 @@ from utils.constants import DOWNLOAD_PATH
 
 def save_file(name: str, year: str):
   files_before = set(os.listdir(DOWNLOAD_PATH))
-  # print("Files before download:", files_before)
-  
+
   # Wait for download to start by detecting a new file
   temp_file_path = None
   final_file_path = None
   
   for _ in range(15): # wait up to 15 seconds for download to start
-      time.sleep(3)
       files_after = set(os.listdir(DOWNLOAD_PATH))
       new_files = files_after - files_before
       # print("new files:", new_files)
@@ -27,6 +25,7 @@ def save_file(name: str, year: str):
               print("Download started and finished quickly.")
               final_file_path = path
               break
+      time.sleep(2)
 
   if temp_file_path:
       # Now wait for the .crdownload file to be removed (i.e., download is complete)
@@ -56,6 +55,7 @@ def save_file(name: str, year: str):
 
       # Ensure the old file exists before trying to rename
       if os.path.exists(final_file_path):
+        
           # If a file with the new name already exists, remove it
           if os.path.exists(new_filepath):
               os.remove(new_filepath)

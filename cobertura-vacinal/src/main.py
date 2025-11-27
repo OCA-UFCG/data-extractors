@@ -7,7 +7,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from scrapping import setup
 from utils.functions import save_file
 
-
 if __name__ == "__main__":
     try:
         driver = setup()
@@ -16,41 +15,21 @@ if __name__ == "__main__":
         
         [years, vaccines] = [Select(tag) for tag in driver.find_elements(By.CLASS_NAME, "dropdownsel.lui-select")]
         time.sleep(2)
-        years.options[1].click()
-        print(len(years.options))
-        # year = years.first_selected_option.text
-        # print(vaccines.options)
-        # print()
-        # print()
-        # print()
         
-        
-        # for year in years.options:
-        #     print(year.text)
-        print("Amount of years:", len(years.options))
         for year_i in range(len(years.options) - 1):
             print("year index:", year_i)
             print("Amount of years:", len(years.options))
             
-            # year_selected = years.options[year_i]
-            # year = year_selected.text
-            # year_selected.click()
             years.select_by_value(str(year_i))
-            # years.select_by_visible_text("Ano")
             year = years.first_selected_option.text
             time.sleep(2)
             
             vaccines = Select(driver.find_elements(By.CLASS_NAME, "dropdownsel.lui-select")[1])
             values = [op.text for op in vaccines.options][1:]
                 
-            # print("tonc donc", vaccines)
             for vaccine in values:
                 
                 vaccines.select_by_visible_text(vaccine)
-                # vaccines = Select(vacinaSelect)
-                # vaccine_selected = vaccines.options[vaccine_i]
-                # vaccine = vaccines.first_selected_option.text
-                # vaccine_selected.click()
                 
                 errors = [NoSuchElementException, ElementNotInteractableException]
                 wait = WebDriverWait(driver, timeout=30, poll_frequency=.2, ignored_exceptions=errors)
@@ -59,11 +38,8 @@ if __name__ == "__main__":
                 button = driver.find_element(By.ID, "exportar-dados-QV1-06")
                 driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", button)
                 driver.execute_script("arguments[0].click();", button)
-                # time.sleep(2)
                 
                 # Wait for download to complete
-                print(vaccine)
-                print(year)
                 save_file(vaccine, year)
                 vaccines = Select(driver.find_elements(By.CLASS_NAME, "dropdownsel.lui-select")[1])
                 

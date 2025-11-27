@@ -27,5 +27,6 @@ def setup():
   errors = [NoSuchElementException, ElementNotInteractableException]
   wait = WebDriverWait(driver, timeout=30, poll_frequency=.2, ignored_exceptions=errors)
   wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "dropdownsel.lui-select")))
+  wait.until(EC.presence_of_all_elements_located((By.ID, "aba2-tab")))
   
   return driver
