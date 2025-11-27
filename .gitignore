@@ -1,1 +1,3 @@
-cobertura-vacinal/chromedriver
+cobertura-vacinal/chromedriver/
+data/
+__pycache__
