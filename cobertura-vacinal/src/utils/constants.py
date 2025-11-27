@@ -20,7 +20,6 @@ RED = "\033[31m"
 YELLOW = "\033[33m"
 GREEN = "\033[32m"
 
-
 class ColorFormatter(logging.Formatter):
     def format(self, record):
         if record.levelno == logging.ERROR:

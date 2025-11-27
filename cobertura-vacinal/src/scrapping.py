@@ -1,6 +1,5 @@
 import os
 import time
-from utils.constants import CHROME_DRIVER_PATH, DOWNLOAD_PATH
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import (
@@ -9,7 +8,9 @@ from selenium.common.exceptions import (
 )
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium import webdriver
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC
+from src.utils.constants import CHROME_DRIVER_PATH, DOWNLOAD_PATH
 
 
 def setup():
@@ -35,7 +36,7 @@ def setup():
     wait = WebDriverWait(
         driver, timeout=30, poll_frequency=0.2, ignored_exceptions=errors
     )
-    
+
     wait.until(
         EC.all_of(
             EC.presence_of_all_elements_located(
@@ -48,3 +49,11 @@ def setup():
     time.sleep(2)
 
     return driver
+
+
+def get_years_select(driver):
+    return Select(driver.find_elements(By.CLASS_NAME, "dropdownsel.lui-select")[0])
+
+
+def get_vaccines_select(driver):
+    return Select(driver.find_elements(By.CLASS_NAME, "dropdownsel.lui-select")[1])

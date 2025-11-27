@@ -6,8 +6,9 @@ from selenium.common.exceptions import (
 )
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from scrapping import setup
-from utils.functions import save_file, get_years_select, get_vaccines_select, logger
+from src.scrapping import setup, get_years_select, get_vaccines_select
+from src.utils.functions import save_file
+from src.logging import logger
 
 if __name__ == "__main__":
     try:

@@ -1,5 +1,5 @@
 cobertura-vacinal/chromedriver/
 data/
 __pycache__
-.log.txt
+logs
 .DS_STORE

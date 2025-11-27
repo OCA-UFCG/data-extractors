@@ -1,35 +1,9 @@
 import os
 import time
-import logging
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
-from utils.constants import DOWNLOAD_PATH, PROJECT_ROOT, ColorFormatter
-
-
-def setup_looging():
-    logger = logging.getLogger(__name__)
-    logger.setLevel(logging.INFO)
-
-    # Console handler
-    console = logging.StreamHandler()
-    console.setFormatter(ColorFormatter("%(asctime)s %(levelname)s - %(message)s"))
-
-    # File handler
-    file_handler = logging.FileHandler(os.path.join(PROJECT_ROOT, ".log.txt"))
-    file_handler.setLevel(logging.INFO)
-
-    # Formatters
-    formatter = logging.Formatter("%(asctime)s [%(levelname)s] - %(message)s")
-
-    file_handler.setFormatter(formatter)
-
-    # Add handlers to logger
-    logger.addHandler(console)
-    logger.addHandler(file_handler)
-    return logger
-
-logger = setup_looging()
-
+from src.utils.constants import DOWNLOAD_PATH
+from src.logging import logger
 
 def save_file(name: str, year: str):
     logger.info(f"Checking for new files in {DOWNLOAD_PATH}")
@@ -104,11 +78,3 @@ def save_file(name: str, year: str):
         logger.warning(
             f"Download did not start or complete in time for vaccine: {name}"
         )
-
-
-def get_years_select(driver):
-    return Select(driver.find_elements(By.CLASS_NAME, "dropdownsel.lui-select")[0])
-
-
-def get_vaccines_select(driver):
-    return Select(driver.find_elements(By.CLASS_NAME, "dropdownsel.lui-select")[1])
