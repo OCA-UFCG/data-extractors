@@ -35,7 +35,7 @@ This is the easiest and recommended way to run the script, as it automatically s
 2.  From the `cobertura-vacinal` directory, run the following command:
 
     ```bash
-    docker-compose up
+    docker-compose up --build
     ```
 
 This will build the necessary Docker images and start the data extraction process. You can monitor the progress through the log messages printed in the console.
