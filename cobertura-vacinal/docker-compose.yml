@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  chromeNode:
+    image: selenium/standalone-chrome:latest
+    platform: linux/amd64
+    container_name: chromeNode
+    ports:
+      - "4444:4444"
+    volumes:
+      - /dev/shm:/dev/shm
+      - ./data:/data
+    networks:
+      - selenium_network
+    restart: always
+
+  app:
+    build: .
+    container_name: app
+    depends_on:
+      - chromeNode
+    volumes:
+      - ./data:/data
+      - ./logs:/logs
+    networks:
+      - selenium_network
+    restart: on-failure
+
+networks:
+  selenium_network:

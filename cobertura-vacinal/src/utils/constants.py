@@ -1,24 +1,20 @@
 import logging
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
-# The root of the data-extractors project.
-PROJECT_ROOT = os.path.dirname(
-    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-)
 
-# Path to the chromedriver executable for the cobertura-vacinal extractor.
-CHROME_DRIVER_PATH = os.path.join(
-    PROJECT_ROOT, "cobertura-vacinal", "chromedriver", "chromedriver"
-)
+LOGS_PATH = os.getenv("LOGS_PATH")
 
 # The directory where downloaded data from cobertura-vacinal is stored.
-DOWNLOAD_PATH = os.path.join(PROJECT_ROOT, "cobertura-vacinal", "data")
+DOWNLOAD_PATH = os.getenv("DOWNLOAD_PATH")
 
 # ANSI escape sequences
 RESET = "\033[0m"
 RED = "\033[31m"
 YELLOW = "\033[33m"
 GREEN = "\033[32m"
+
 
 class ColorFormatter(logging.Formatter):
     def format(self, record):

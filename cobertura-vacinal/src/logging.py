@@ -1,13 +1,13 @@
-
 import os
 import logging
-from src.utils.constants import PROJECT_ROOT, ColorFormatter
+from src.utils.constants import LOGS_PATH, ColorFormatter
+
 
 def setup_looging():
-    
-    log_dir = os.path.join(PROJECT_ROOT, "logs")
+
+    log_dir = os.path.join(LOGS_PATH, "logs")
     os.makedirs(log_dir, exist_ok=True)
-    
+
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
 
@@ -16,7 +16,9 @@ def setup_looging():
     console.setFormatter(ColorFormatter("%(asctime)s %(levelname)s - %(message)s"))
 
     # File handler
-    file_handler = logging.FileHandler(os.path.join(PROJECT_ROOT, "logs", "cobertura-vacinal.txt"))
+    file_handler = logging.FileHandler(
+        os.path.join(log_dir, "cobertura-vacinal.txt")
+    )
     file_handler.setLevel(logging.INFO)
 
     # Formatters
@@ -28,5 +30,6 @@ def setup_looging():
     logger.addHandler(console)
     logger.addHandler(file_handler)
     return logger
+
 
 logger = setup_looging()

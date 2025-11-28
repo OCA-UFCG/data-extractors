@@ -10,23 +10,40 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC
-from src.utils.constants import CHROME_DRIVER_PATH, DOWNLOAD_PATH
+from src.utils.constants import DOWNLOAD_PATH
+from src.utils.functions import wait_for_selenium
+
+
+def get_default_chrome_options():
+    options = webdriver.ChromeOptions()
+    options.add_argument("--no-sandbox")
+    prefs = {
+        "download.prompt_for_download": False,
+        "download.directory_upgrade": True,
+        "download.default_directory": "/data",
+        "safebrowsing.enabled": True,
+    }
+    options.add_experimental_option("prefs", prefs)
+
+    return options
 
 
 def setup():
-    service = Service(executable_path=CHROME_DRIVER_PATH)
 
     options = webdriver.ChromeOptions()
 
     os.makedirs(DOWNLOAD_PATH, exist_ok=True)
 
-    prefs = {
-        "download.prompt_for_download": False,
-        "download.default_directory": DOWNLOAD_PATH,
-        "safebrowsing.enabled": True,
-    }
-    options.add_experimental_option("prefs", prefs)
-    driver = webdriver.Chrome(options=options, service=service)
+    options = get_default_chrome_options()
+    wait_for_selenium()
+    driver = webdriver.Remote(
+        command_executor="http://chromeNode:4444/wd/hub", options=options
+    )
+    print(driver)
+    # driver = webdriver.Chrome(options=options, service=service)
+    driver.execute_cdp_cmd(
+        "Page.setDownloadBehavior", {"behavior": "allow", "downloadPath": "/data"}
+    )
 
     driver.get(
         "https://infoms.saude.gov.br/extensions/SEIDIGI_DEMAS_VACINACAO_CALENDARIO_NACIONAL_COBERTURA_OCORRENCIA/SEIDIGI_DEMAS_VACINACAO_CALENDARIO_NACIONAL_COBERTURA_OCORRENCIA.html"

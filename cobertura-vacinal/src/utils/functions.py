@@ -1,9 +1,23 @@
 import os
 import time
+import requests
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
 from src.utils.constants import DOWNLOAD_PATH
 from src.logging import logger
+
+
+def wait_for_selenium():
+    while True:
+        try:
+            res = requests.get("http://chromeNode:4444/wd/hub/status")
+            if res.status_code == 200 and res.json()["value"]["ready"] == True:
+                logger.info("Selenium is ready!")
+                return
+        except:
+            pass
+        logger.info("Waiting for Selenium...")
+        time.sleep(1)
+
 
 def save_file(name: str, year: str):
     logger.info(f"Checking for new files in {DOWNLOAD_PATH}")

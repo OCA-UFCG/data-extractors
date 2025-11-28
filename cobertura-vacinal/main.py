@@ -25,7 +25,7 @@ if __name__ == "__main__":
             time.sleep(2)
 
             vaccines = get_vaccines_select(driver)
-            
+
             values = [op.text for op in vaccines.options][1:]
 
             for vaccine in values:

@@ -1,4 +1,4 @@
-cobertura-vacinal/chromedriver/
+chromedriver/
 data/
 __pycache__
 logs
