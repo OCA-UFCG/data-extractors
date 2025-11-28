@@ -17,6 +17,13 @@ The script performs the following steps:
 
 ## How to Run
 
+:warning: **Attention:** Before everything run these commands:
+
+```bash
+    mkdir data # inside the cobertura-vacinal directory
+    sudo chmod -R 777 data
+```
+
 You can run the data extraction script in two ways: using Docker (recommended) or running it manually.
 
 ### With Docker (Recommended)
