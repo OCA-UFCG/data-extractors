@@ -55,4 +55,5 @@ if __name__ == "__main__":
     finally:
         # Close the browser
         logger.info("Closing browser.")
-        driver.quit()
+        
+    driver.quit()
